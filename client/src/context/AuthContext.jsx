@@ -1,10 +1,9 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
-// Create a custom hook for easy access to the context
 export const useAuth = () => {
   return useContext(AuthContext);
 };
@@ -14,6 +13,7 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const inactivityTimer = useRef(null);
 
   const api = axios.create({
     baseURL: 'http://localhost:5000/api',
@@ -57,6 +57,40 @@ export const AuthProvider = ({ children }) => {
     setToken(null);
     navigate('/login');
   };
+
+  const resetInactivityTimer = () => {
+    if (inactivityTimer.current) {
+      clearTimeout(inactivityTimer.current);
+    }
+    inactivityTimer.current = setTimeout(() => {
+      logout();
+    }, 2* 60 * 1000); // 5 minutes
+  };
+
+  useEffect(() => {
+    if (token) {
+      const events = ['mousemove', 'keydown', 'mousedown', 'touchstart'];
+
+      const resetTimer = () => {
+        resetInactivityTimer();
+      };
+
+      events.forEach((event) => {
+        window.addEventListener(event, resetTimer);
+      });
+
+      resetInactivityTimer(); // Initial timer start
+
+      return () => {
+        events.forEach((event) => {
+          window.removeEventListener(event, resetTimer);
+        });
+        if (inactivityTimer.current) {
+          clearTimeout(inactivityTimer.current);
+        }
+      };
+    }
+  }, [token]);
 
   const value = { token, user, error, register, login, logout };
 
