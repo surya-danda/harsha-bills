@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; // <-- The FIX is here
+import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const LoginPage = () => {
-  const { login, error } = useAuth(); // <-- And here
+  const { login, error } = useAuth();
+  const location = useLocation();
+  const message = location.state?.message;
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -23,7 +26,9 @@ const LoginPage = () => {
     <div className="flex items-center justify-center mt-10">
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
         <h2 className="text-2xl font-bold text-center text-gray-800">Sign in to your account</h2>
-         {error && <p className="text-red-500 text-center bg-red-100 p-2 rounded-md">{error}</p>}
+        {/* Display the message from the location state */}
+        {message && <p className="text-blue-500 text-center bg-blue-100 p-2 rounded-md">{message}</p>}
+        {error && <p className="text-red-500 text-center bg-red-100 p-2 rounded-md">{error}</p>}
         <form className="space-y-6" onSubmit={onSubmit}>
           <div>
             <label htmlFor="email" className="text-sm font-semibold text-gray-600">
