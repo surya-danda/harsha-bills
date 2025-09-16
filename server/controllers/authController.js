@@ -14,7 +14,7 @@ export const registerUser = async (req, res) => {
     user.password = await bcrypt.hash(password, salt);
     await user.save();
     const payload = { user: { id: user.id } };
-    jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '2m' }, (err, token) => {
+    jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '8h' }, (err, token) => {
       if (err) throw err;
       res.json({ token });
     });
@@ -36,7 +36,7 @@ export const loginUser = async (req, res) => {
       return res.status(400).json({ msg: 'Invalid Credentials' });
     }
     const payload = { user: { id: user.id } };
-    jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '2m' }, (err, token) => {
+    jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '8h' }, (err, token) => {
       if (err) throw err;
       res.json({ token });
     });
