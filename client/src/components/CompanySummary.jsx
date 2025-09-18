@@ -10,7 +10,7 @@ const CompanySummary = () => {
         const fetchSummary = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const res = await axios.get('http://localhost:5000/api/entries/reports/company-summary', {
+                const res = await axios.get('https://harsha-bills.onrender.com/api/entries/reports/company-summary', {
                     headers: { 'x-auth-token': token },
                 });
                 setSummary(res.data);
