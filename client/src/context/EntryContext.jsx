@@ -16,7 +16,7 @@ export const EntryProvider = ({ children }) => {
   const [filterMonth, setFilterMonth] = useState(new Date().getMonth() + 1);
 
   const api = axios.create({
-    baseURL: 'http://localhost:5000/api',
+    baseURL: 'https://harsha-bills.onrender.com/api',
   });
 
   api.interceptors.request.use((config) => {
