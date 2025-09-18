@@ -8,7 +8,7 @@ export default defineConfig({
     proxy: {
       // This will forward any request starting with /api to your backend server
       '/api': {
-        target: 'http://localhost:5000', // Your backend server URL
+        target: 'https://harsha-bills.onrender.com', // Your backend server URL
         changeOrigin: true,
       },
     },
