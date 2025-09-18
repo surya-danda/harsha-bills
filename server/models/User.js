@@ -19,6 +19,12 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+    phoneNumber: {
+    type: String,
+    unique: true,
+    sparse: true, // allows multiple docs without phoneNumber
+  },
+  
 });
 
 export default mongoose.model('user', UserSchema);
