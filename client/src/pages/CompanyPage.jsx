@@ -12,7 +12,7 @@ const CompanyPage = () => {
     const fetchCompanyEntries = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get(`http://localhost:5000/api/entries/company/${encodeURIComponent(companyName)}`, {
+        const res = await axios.get(`https://harsha-bills.onrender.com/api/entries/company/${encodeURIComponent(companyName)}`, {
           headers: { 'x-auth-token': token },
         });
         setEntries(res.data);
