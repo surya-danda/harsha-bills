@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
   const inactivityTimer = useRef(null);
 
   const api = axios.create({
-    baseURL: 'http://localhost:5000/api',
+    baseURL: 'https://harsha-bills.onrender.com/api',
   });
 
   const logout = useCallback(() => {
