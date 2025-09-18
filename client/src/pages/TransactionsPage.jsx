@@ -17,7 +17,7 @@ const TransactionsPage = () => {
       setError(null);
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('/api/entries/transactions', {
+        const res = await axios.get('https://harsha-bills.onrender.com/api/entries/transactions', {
           headers: { 'x-auth-token': token },
           params: { shop: activeShop, year: filterYear, month: filterMonth },
         });
