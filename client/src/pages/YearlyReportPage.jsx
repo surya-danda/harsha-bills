@@ -15,7 +15,7 @@ const YearlyReportPage = () => {
       setError(null);
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('/api/entries/reports/yearly-company', {
+        const res = await axios.get('https://harsha-bills.onrender.com/api/entries/reports/yearly-company', {
           headers: { 'x-auth-token': token },
           params: { year },
         });
